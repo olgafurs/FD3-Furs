@@ -23,6 +23,7 @@ var Scales = /** @class */ (function () {
         var sumScale = 0;
         this.productsArr.forEach(function (prod) {
             sumScale = sumScale + prod.weight;
+            return sumScale;
         });
         return sumScale;
     };

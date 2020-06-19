@@ -14,8 +14,9 @@ class Scales {
 
     getSumScale():number { // получениe суммарного веса добавленных Продуктов       
         let sumScale:number = 0;
-        this.productsArr.forEach( prod => {
-            sumScale =  sumScale + prod.weight;           
+        this.productsArr.forEach( (prod:{name:string, weight:number}):number => {
+            sumScale =  sumScale + prod.weight;  
+            return  sumScale;        
         });
 
         return sumScale;
