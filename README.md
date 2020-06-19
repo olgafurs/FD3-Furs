@@ -1,2 +1,2 @@
-# FD3-Furs
-My React homeworks
+# FD3-Furs-TypeScript
+My TypeScript homeworks
