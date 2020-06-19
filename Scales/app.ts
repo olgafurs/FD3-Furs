@@ -24,8 +24,9 @@ class Scales {
 
     getNameList():string[] { //получение списка наименований добавленных Продуктов в виде массива        
         let nameList:string[] = [];
-        this.productsArr.forEach( prod => {
-            nameList.push(prod.name);           
+        this.productsArr.forEach( (prod:{name:string, weight:number}):string[] => {
+            nameList.push(prod.name);
+            return nameList;       
         });
        
         return nameList;
