@@ -14,26 +14,24 @@ var __extends = (this && this.__extends) || (function () {
 var Scales = /** @class */ (function () {
     function Scales() {
         this.productsArr = [];
-        this.sumScale = 0;
-        this.nameList = [];
     }
     Scales.prototype.add = function (product) {
         this.productsArr.push(product);
         console.log("На весы добавлен продукт  " + product.name);
     };
     Scales.prototype.getSumScale = function () {
-        var _this = this;
+        var sumScale = 0;
         this.productsArr.forEach(function (prod) {
-            _this.sumScale = _this.sumScale + prod.weight;
+            sumScale = sumScale + prod.weight;
         });
-        console.log("Общий вес продуктов на весах  " + this.sumScale);
+        return sumScale;
     };
     Scales.prototype.getNameList = function () {
-        var _this = this;
+        var nameList = [];
         this.productsArr.forEach(function (prod) {
-            _this.nameList.push(prod.name);
+            nameList.push(prod.name);
         });
-        console.log("Список наименований продуктов на весах  " + this.nameList);
+        return nameList;
     };
     return Scales;
 }());
@@ -43,10 +41,10 @@ var Product = /** @class */ (function () {
             this.weight = _weight;
     }
     Product.prototype.getScale = function () {
-        console.log("Вес продукта  " + this.name + "  равен  " + this.weight);
+        return this.weight;
     };
     Product.prototype.getName = function () {
-        console.log("Название продукта  " + this.name);
+        return this.name;
     };
     return Product;
 }());
@@ -63,7 +61,7 @@ var Tomato = /** @class */ (function (_super) {
     Tomato.prototype.getName = function () {
         this.setColor("красный");
         _super.prototype.getName.call(this);
-        console.log("Цвет помидора  " + this.color);
+        return (this.color + " " + this.name);
     };
     return Tomato;
 }(Product));
@@ -78,25 +76,23 @@ var Apple = /** @class */ (function (_super) {
         this.color = _color;
     };
     Apple.prototype.getName = function () {
-        this.setColor("зеленый");
+        this.setColor("зеленое");
         _super.prototype.getName.call(this);
-        console.log("Цвет яблока  " + this.color);
+        return (this.color + " " + this.name);
     };
     return Apple;
 }(Product));
 var scales = new Scales();
 var apple1 = new Apple("яблоко1", 100);
-apple1.getName();
-apple1.getScale();
+console.log("Вес продукта  " + apple1.getName() + "  равен  " + apple1.getScale());
 var tomato1 = new Tomato("помидор1", 200);
-tomato1.getName();
-tomato1.getScale();
+console.log("Вес продукта  " + tomato1.getName() + "  равен  " + tomato1.getScale());
 var apple2 = new Apple("яблоко2", 250);
 var tomato2 = new Tomato("помидор2", 270);
 scales.add(apple1);
 scales.add(apple2);
 scales.add(tomato1);
 scales.add(tomato2);
-scales.getSumScale();
-scales.getNameList();
+console.log("Общий вес продуктов на весах  " + scales.getSumScale());
+console.log("Список наименований продуктов на весах  " + scales.getNameList());
 //# sourceMappingURL=app.js.map

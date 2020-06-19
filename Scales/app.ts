@@ -1,35 +1,33 @@
 
 class Scales {
 
-    productsArr:Product[]; //массив добавленных на весы Продуктов (объектов класса Product)
-    sumScale:number; //суммарный вес продуктов на весах
-    nameList:string[]; //список продуктов
+    productsArr:Product[]; //массив добавленных на весы Продуктов (объектов класса Product)    
 
     constructor() {
-        this.productsArr=[]; 
-        this.sumScale= 0;
-        this.nameList=[];
+        this.productsArr=[];        
     }
 
     add(product:Product):void { //добавление нового Продукта на весы
         this.productsArr.push(product);
-        console.log( "На весы добавлен продукт  " + product.name);
+        console.log( "На весы добавлен продукт  " + product.name);         
     }
 
-    getSumScale():void { // получениe суммарного веса добавленных Продуктов       
-        
+    getSumScale():number { // получениe суммарного веса добавленных Продуктов       
+        let sumScale:number = 0;
         this.productsArr.forEach( prod => {
-            this.sumScale =  this.sumScale + prod.weight;           
+            sumScale =  sumScale + prod.weight;           
         });
-        console.log("Общий вес продуктов на весах  " + this.sumScale);
-        
+
+        return sumScale;
     }
 
-    getNameList():void { //получение списка наименований добавленных Продуктов в виде массива
+    getNameList():string[] { //получение списка наименований добавленных Продуктов в виде массива        
+        let nameList:string[] = [];
         this.productsArr.forEach( prod => {
-            this.nameList.push(prod.name);           
+            nameList.push(prod.name);           
         });
-        console.log("Список наименований продуктов на весах  " + this.nameList);
+       
+        return nameList;
     }
    
     
@@ -46,12 +44,12 @@ class Product {
        this.weight =  _weight;
     }  
 
-    getScale():void { //получить вес продукта
-        console.log("Вес продукта  " +  this.name + "  равен  "+ this.weight );
+    getScale():number { //получить вес продукта       
+        return this.weight;
     }
 
-    getName():void { //получить название продукта
-        console.log("Название продукта  " + this.name);
+    getName():string { //получить название продукта      
+        return this.name;
     }
    
     
@@ -70,10 +68,10 @@ class Tomato extends Product {
         this.color=_color;
     }   
 
-    getName():void { //получить название продукта
+    getName():string { //получить название продукта
         this.setColor("красный");
-        super.getName();
-        console.log("Цвет помидора  " +  this.color)
+        super.getName();      
+        return (this.color + " " + this.name);
     }
 
    
@@ -92,10 +90,11 @@ class Apple extends Product {
         this.color=_color;
     }   
 
-    getName():void { //получить название продукта
-        this.setColor("зеленый");
+    getName():string { //получить название продукта
+        this.setColor("зеленое");
         super.getName();
-        console.log("Цвет яблока  " +  this.color)
+       
+        return (this.color + " " + this.name);
     }
 
    
@@ -105,14 +104,10 @@ class Apple extends Product {
 let scales:Scales=new Scales();
 
 let apple1:Apple=new Apple("яблоко1", 100);
-
-apple1.getName();
-apple1.getScale();
+console.log("Вес продукта  " +  apple1.getName() + "  равен  "+ apple1.getScale() )
 
 let tomato1:Tomato=new Tomato("помидор1", 200);
-
-tomato1.getName();
-tomato1.getScale();
+console.log("Вес продукта  " +  tomato1.getName() + "  равен  "+ tomato1.getScale() )
 
 let apple2:Apple=new Apple("яблоко2", 250);
 let tomato2:Tomato=new Tomato("помидор2", 270);
@@ -122,5 +117,6 @@ scales.add(apple2);
 scales.add(tomato1);
 scales.add(tomato2);
 
-scales.getSumScale();
-scales.getNameList();
+
+console.log("Общий вес продуктов на весах  " + scales.getSumScale());
+console.log("Список наименований продуктов на весах  " + scales.getNameList())
