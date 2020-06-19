@@ -1,9 +1,0 @@
-[ 
-    {"productName":"Букет 'Алый закат'", "price":125, "urlPhoto":"img/buket-alyy-zakat.300x200.jpeg", "count":1, "code":0}, 
-    {"productName":"Букет 'Из фрезий'", "price":110, "urlPhoto":"img/buket-iz-freziy.300x200.jpg", "count":2, "code":1},
-    {"productName":"Букет 'Летний ветерок'", "price":115, "urlPhoto":"img/buket-letniy-veterok.300x200.jpg", "count":3, "code":2},
-    {"productName":"Букет 'Нежное облако'", "price":85, "urlPhoto":"img/buket-nezhnoe-oblako.300x200.jpg", "count":4, "code":3},
-    {"productName":"Букет 'Новая встреча'", "price":100, "urlPhoto":"img/buket-novaya-vstrecha.300x200.jpg", "count":5, "code":4},
-    {"productName":"Букет 'Весенний микс'", "price":95, "urlPhoto":"img/buket-vesenniy-miks.300x200.jpg", "count":6, "code":5},
-    {"productName":"Букет 'Весна в Париже'", "price":115, "urlPhoto":"img/buket-vesna-v-parizhe.300x200.jpg", "count":7, "code":6}
-]
