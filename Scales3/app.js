@@ -39,7 +39,6 @@ var ScalesStorageEngineArray = /** @class */ (function () {
     }
     ScalesStorageEngineArray.prototype.addItem = function (product) {
         this.productsArr.push(product);
-        // console.log("На весы положили  " + product.getName() + "  c весом  " + product.getScale())              
     };
     ScalesStorageEngineArray.prototype.getItem = function (index) {
         return this.productsArr[index];
