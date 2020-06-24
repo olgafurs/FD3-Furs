@@ -4,19 +4,25 @@ interface IStorageEngine {
     getCount():number;
 }
 
-interface IScalable {
-    getScale():number;
-    getName():string;
-}
-
-
 class Scales<StorageEngine extends IStorageEngine> {
 
     products:StorageEngine; //массив добавленных на весы Продуктов (объектов класса Product)    
 
     constructor(_products:StorageEngine) {
          this.products=_products;        
-    }    
+    } 
+    
+    addItem(product:Product):void { //добавление нового Продукта на весы
+        this.products.addItem(product);                   
+    }
+
+    getItem(index:number):Product {
+        return this.products.getItem(index);
+    }
+
+    getCount():number {
+        return  this.products.getCount();
+    }
 
     getSumScale():number { // получениe суммарного веса добавленных Продуктов       
         let sumScale:number = 0;
@@ -42,7 +48,7 @@ class Scales<StorageEngine extends IStorageEngine> {
 }
 
 
-class Product implements IScalable {
+class Product {
 
     private name:string;
     private weight:number;   
@@ -88,17 +94,12 @@ class ScalesStorageEngineArray implements IStorageEngine { //хранилище 
 
 
 class ScalesStorageEngineLocalStorage {
-
-    productsArr:Product[]; //массив добавленных на весы Продуктов (объектов класса Product)    
+       
     localStorageKey:string = "Products";
-    
-    constructor() {
-        this.productsArr=[];        
-    }
-
+ 
     addItem(product:Product):void { //добавление нового Продукта на весы
         if(!localStorage.getItem(this.localStorageKey)){
-            localStorage.setItem(this.localStorageKey,  JSON.stringify(this.productsArr) );
+            localStorage.setItem(this.localStorageKey,   JSON.stringify([]));
         }           
         let a:Product[]= JSON.parse(localStorage.getItem(this.localStorageKey));
         a.push(product);
@@ -126,17 +127,16 @@ let apple2:Product=new Product("яблоко2", 250);
 let tomato2:Product=new Product("помидор2", 270);
 
 console.log("*********************Сохраняем продукты в массиве*******************");
-let SSEngineArray = new ScalesStorageEngineArray;
+ let SSEngineArray = new ScalesStorageEngineArray;
 let scales1 =new Scales<ScalesStorageEngineArray>(SSEngineArray);
 
-
-SSEngineArray.addItem(apple1);
+scales1.addItem(apple1);
 console.log("На весы положили  " + apple1.getName() + "  c весом  " + apple1.getScale());
-SSEngineArray.addItem(apple2);
+scales1.addItem(apple2);
 console.log("На весы положили  " + apple2.getName() + "  c весом  " + apple2.getScale());
-SSEngineArray.addItem(tomato1);
+scales1.addItem(tomato1);
 console.log("На весы положили  " + tomato1.getName() + "  c весом  " + tomato1.getScale());
-SSEngineArray.addItem(tomato2);
+scales1.addItem(tomato2);
 console.log("На весы положили  " + tomato2.getName() + "  c весом  " + tomato2.getScale());
 
 
@@ -144,22 +144,20 @@ console.log("Общий вес продуктов на весах  " + scales1.g
 console.log("Список наименований продуктов на весах  " + scales1.getNameList())
 
 console.log("*********************Сохраняем продукты в LocalStorage*******************");
-
-
-
 let SSEngineLocalStorage = new ScalesStorageEngineLocalStorage;
 window.localStorage.removeItem(SSEngineLocalStorage.localStorageKey);
 let scales2 =new Scales<ScalesStorageEngineLocalStorage>(SSEngineLocalStorage);
 
-
-SSEngineLocalStorage.addItem(apple1);
+scales2.addItem(apple1);
 console.log("На весы положили  " + apple1.getName() + "  c весом  " + apple1.getScale());
-SSEngineLocalStorage.addItem(apple2);
+scales2.addItem(apple2);
 console.log("На весы положили  " + apple2.getName() + "  c весом  " + apple2.getScale());
-SSEngineLocalStorage.addItem(tomato1);
+scales2.addItem(tomato1);
 console.log("На весы положили  " + tomato1.getName() + "  c весом  " + tomato1.getScale());
-SSEngineLocalStorage.addItem(tomato2);
+scales2.addItem(tomato2);
 console.log("На весы положили  " + tomato2.getName() + "  c весом  " + tomato2.getScale());
+
+
 
 
 console.log("Общий вес продуктов на весах  " + scales2.getSumScale());
