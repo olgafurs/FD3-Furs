@@ -22,7 +22,7 @@ class Scales<StorageEngine extends IStorageEngine> {
         let sumScale:number = 0;
 
         for(let i=0; i<this.products.getCount(); i++) {
-            let a = this.products.getItem(i);
+            let a:Product = this.products.getItem(i);
             sumScale += a.getScale();  
           }
         return sumScale;
