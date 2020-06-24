@@ -27,7 +27,7 @@ class Scales<StorageEngine extends IStorageEngine> {
     getSumScale():number { // получениe суммарного веса добавленных Продуктов       
         let sumScale:number = 0;
 
-        for(let i=0; i<this.products.getCount(); i++) {
+        for(let i:number=0; i<this.products.getCount(); i++) {
             let a:Product = this.products.getItem(i);
             sumScale += a.getScale();  
           }
@@ -36,7 +36,7 @@ class Scales<StorageEngine extends IStorageEngine> {
 
     getNameList():string[] { //получение списка наименований добавленных Продуктов в виде массива        
         let nameList:string[] = [];
-        for(let i=0; i<this.products.getCount(); i++) {
+        for(let i:number=0; i<this.products.getCount(); i++) {
             let a:Product = this.products.getItem(i);
             nameList.push(a.getName()); 
           }
@@ -98,18 +98,25 @@ class ScalesStorageEngineLocalStorage {
     localStorageKey:string = "Products";
  
     addItem(product:Product):void { //добавление нового Продукта на весы
-        if(!localStorage.getItem(this.localStorageKey)){
-            localStorage.setItem(this.localStorageKey,   JSON.stringify([]));
-        }           
-        let a:Product[]= JSON.parse(localStorage.getItem(this.localStorageKey));
+        // if(!localStorage.getItem(this.localStorageKey)){
+        //     localStorage.setItem(this.localStorageKey,   JSON.stringify([]));
+        // }           
+        // let a:Product[]= JSON.parse(localStorage.getItem(this.localStorageKey));
+        // a.push(product);
+        // localStorage.setItem(this.localStorageKey, JSON.stringify(a));
+        
+        
+        let lsstr=localStorage.getItem(this.localStorageKey);
+ 
+        let a:Product[] =  lsstr ? JSON.parse(lsstr) : [ ];
         a.push(product);
-        localStorage.setItem(this.localStorageKey, JSON.stringify(a));       
+        localStorage.setItem(this.localStorageKey, JSON.stringify(a)); 
                    
     }
 
     getItem(index:number):Product {
-        let a:any = JSON.parse(localStorage.getItem(this.localStorageKey));
-        return new Product(a[index].name, a[index].weight)
+        let a:any[] = JSON.parse(localStorage.getItem(this.localStorageKey));
+        return new Product(a[index].name, a[index].weight);
     }
 
     getCount():number {
@@ -127,7 +134,7 @@ let apple2:Product=new Product("яблоко2", 250);
 let tomato2:Product=new Product("помидор2", 270);
 
 console.log("*********************Сохраняем продукты в массиве*******************");
- let SSEngineArray = new ScalesStorageEngineArray;
+let SSEngineArray = new ScalesStorageEngineArray;
 let scales1 =new Scales<ScalesStorageEngineArray>(SSEngineArray);
 
 scales1.addItem(apple1);
